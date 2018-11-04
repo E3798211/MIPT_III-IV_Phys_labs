@@ -306,7 +306,7 @@ $U_2$, В&$I_2$, мкА&$U_2$, В&$I_2$, мкА&$U_2$, В&$I_2$, мкА\\
 	width  = 15cm,
 	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
 	xlabel = {$U$, В},
-	ylabel = {$I$, дел},
+	ylabel = {$I$, мкА},
 	grid   = major,
 ]
 
@@ -431,7 +431,7 @@ $I = 5.0$ мкА
 	width  = 15cm,
 	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
 	xlabel = {$U$, В},
-	ylabel = {$I$, дел},
+	ylabel = {$I$, мкА},
 	grid   = major,
 ]
 \addplot+[
@@ -518,7 +518,7 @@ $I = 3.0$ мкА
 	width  = 15cm,
 	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
 	xlabel = {$U$, В},
-	ylabel = {$I$, дел},
+	ylabel = {$I$, мкА},
 	grid   = major,
 ]
 \addplot+[
@@ -596,7 +596,7 @@ coordinates{
 \end{axis}
 \end{tikzpicture}
 
-\vspace{0.5cm}
+\vspace{1cm}
 $I = 1.5$ мкА
 
 \begin{tikzpicture}
@@ -605,7 +605,7 @@ $I = 1.5$ мкА
 	width  = 15cm,
 	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
 	xlabel = {$U$, В},
-	ylabel = {$I$, дел},
+	ylabel = {$I$, мкА},
 	grid   = major,
 ]
 \addplot+[
@@ -691,17 +691,172 @@ coordinates{
 \hline
 $I$, мА		&	$I_{i\text{н}}$, мкА	&	$\sigma_{I_{i\text{н}}}$, мкА	&	$\frac{dI}{dU}|_{U = 0}$, мкА/В	&	$\sigma_{\frac{dI}{dU}|_{U = 0}}$, мкА/В	\\
 \hline
-5.0			&	24						&	2								&	11.6								&	0.3											\\
+5.0			&	77						&	2								&	11.6								&	0.3											\\
 \hline
 3.0			&	46						&	2								&	6.8									&	0.4											\\
 \hline
-1.5			&	77						&	2								&	3.6									&	0.3											\\
+1.5			&	24						&	2								&	3.6									&	0.3											\\
 \hline
 \end{tabular}
 \end{center}
 
+\vspace{1cm}
+Теперь определим энергию электронов по формуле
+$$
+	E = kT = \frac{1}{2}\frac{eI_{i\text{н}}}{\frac{dI}{dU}|_{U = 0}} = 3.34~\text{эВ}
+$$
+Погрешность определим, считая $E = f(I_{i\text{н}}, \frac{dI}{dU}|_{U = 0})$, а также найдя отклонения значений в серии экспериментов от среднего. Получим:
+$$
+	E = (3.34 \pm 0.04)~\text{эВ}
+$$
 
+\vspace{1cm}
+Зная $E$, можно определить $n_e$:
+$$
+	I_{i\text{н}} = 0.4n_eeS\sqrt{\frac{2kT}{m_i}} \Rightarrow n_e = 2.5\frac{I_{i\text{н}}}{eS}\sqrt{\frac{m_i}{2kT}},
+$$
+\noindent где $S = \pi ld$, $l = 5.2$ мм, $d = 0.2$ мм, $m_i = 22\cdot1.66\cdot10^{-27}$ кг. Получим:
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$I_{i\text{н}}$, мкА	&	$n_e$, м$^{-3}\cdot10^{15}$	&	$\sigma_{n_e}$, м$^{-3}\cdot10^{15}$	\\
+\hline
+77						&	68							&	2										\\
+\hline
+46						&	41							&	2										\\
+\hline
+24						&	21							&	2										\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+Построим графики зависимостей $T(I_p)$ и $n_e(I_p)$:
+
+\vspace{1cm}
+
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$I_p$, мА},
+	ylabel = {$T$, K$\cdot 10^3$},
+	grid   = major,
+]
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	(1.5, 38.6)	+-	(0.1, 0.5)
+	(3.0, 39.2)	+-	(0.1, 0.5)
+	(5.0, 38.4)	+-	(0.1, 0.5)
+};
+
+\addplot+[
+	mark  = none,
+	color = blue
+	]
+coordinates{
+	(1.2, 38.75)
+	(5.3, 38.75)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\hspace*{0.2cm}
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$I_p$, мА},
+	ylabel = {$n_e$, м$^{-3}\cdot10^{15}$},
+	grid   = major,
+]
+\addplot+[
+	smooth,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	(1.5, 21)	+-	(0.1, 1)
+	(3.0, 41)	+-	(0.1, 2)
+	(5.0, 68)	+-	(0.1, 2)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\newpage
+Найдем плазменную частоту колебаний электронов:
+$$
+	\omega_p = \sqrt{\frac{n_ee^2}{\epsilon_0m_e}}
+$$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$n_e$, м$^{-3}\cdot10^{15}$	&	$\omega_p$, $c^{-1}\cdot 10^6$	&	$\sigma_{\omega_p}$, $c^{-1}\cdot 10^6$	\\
+\hline
+21							&	260								&	20											\\
+\hline
+41							&	360								&	20 											\\
+\hline
+68							&	480								&	20											\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+А также дебаевский радиус:
+$$
+	r_D = \sqrt{\frac{kT}{4\pi ne^2}}
+$$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$n_e$, м$^{-3}\cdot10^{15}$	&	$r_D$, м$^{-4}$		&	$\sigma_{r_D}$, м$^{-4}$	\\
+\hline
+21							&	2.61				&	0.13						\\
+\hline
+41							&	1.86				&	0.09						\\
+\hline
+68							&	1.45				&	0.08						\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+Зная дебаевский радиус, можно найти число электронов в дебаевской сфере:
+$$
+	N = \frac{4}{3}\pi r_D^3 n_e
+$$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$n_e$, м$^{-3}\cdot10^{15}$	&	$N$		&	$\sigma_N$	\\
+\hline
+21							&	1560	&	80			\\
+\hline
+41							&	1120	&	60			\\
+\hline
+68							&	870		&	40			\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+Таким образом, в данной лабораторной работе мы изучили газовый разряд и такие свойства плазмы, как концентрация электронов, плазменная частота колебаний электронов и дебаевский радиус при помощи двойного зонда, а также построили ВАХ тлеющего разряда.
 
 
 \end{document}
+
