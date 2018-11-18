@@ -8,6 +8,7 @@
 
 \usepackage{amsmath}
 \usepackage{pgfplots}
+\usepackage{makecell}
 
 \usepackage{geometry} % Меняем поля страницы
 \geometry{left=2cm}% левое поле
@@ -149,19 +150,239 @@ m_y = \frac{2\sqrt{2}KU_\text{эфф}}{2y} \frac{\text{В}}{\text{Дел}}
 RC = \frac{U_\text{вх}}{RU_\text{вых}}
 \end{equation}
 
+\newpage
 
+\textbf{Ход работы.}
 
+\vspace{1cm}
+0. Соберем схему согласно рис. 2 и подготовим приборы к работе. Сведем в таблицу характеристики устновки.
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+						&	Феррит	&	Пермаллой	&	Кремнистое железо	\\
+\hline
+$N_0$, витков			&	35		&	40			&	35					\\
+\hline
+$N_\text{и}$, витков	&	400		&	200 		&	350					\\
+\hline
+$S$, см$^2$				&	3.0		&	3.8			&	1.2					\\
+\hline
+$2\pi R$, см			&	25		&	24			&	10					\\
+\hline
+\end{tabular}
+\end{center}
 
+1. Снимем зачения, соответсвтующие вершинам петель гистерезиса, подбирая ток питания таким, чтобы предельная петля гистерезиса занимала большую часть экрана. 
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c}{Феррит}			&	\multicolumn{3}{|c}{Пермаллой}			&	\multicolumn{3}{|c|}{\makecell{Кремнистое \\ железо}}	\\
+\hline
+$I$, А	&	$x$, дел&	$y$, дел	&	$I$, А	&	$x$, дел	&	$y$, дел	&	$I$, А	&	$x$, дел	&	$y$, дел				\\
+\hline				
+0.054	&	1.2		&	1.0			&	0.065	&	1.2			&	0.4			&	0.167	&	1.0			&	1.0						\\
+\hline
+0.097	&	2.0		&	1.6			&	0.088	&	1.8			&	0.8			&	0.241	&	1.6			&	1.4						\\
+\hline
+0.156	&	2.8		&	2.0			&	0.100	&	2.0			&	1.0			&	0.321	&	2.4			&	1.6						\\
+\hline
+0.169	&	3.2		&	2.2			&	0.114	&	2.4			&	1.2			&	0.412	&	3.0			&	1.8						\\
+\hline
+0.201	&	3.6		&	2.4			&	0.132	&	3.2			&	1.8			&	0.460	&	4.0			&	2.0						\\
+\hline
+0.223	&	4.2		&	2.6			&			&				&				&			&				&							\\
+\hline
+0.240	&	5.0		&	2.8			&			&				&				&			&				&							\\
+\hline
+\end{tabular}
+\end{center}
 
+\vspace{0.5cm}
+Построим соответствующие кривые намагничивания.
 
+\begin{tikzpicture}
+\begin{axis}[
+	title  = {Феррит},
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$x$, дел},
+	ylabel = {$y$, дел},
+	grid   = major,
+	xmin = 0,
+	ymin = 0,
+]
 
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	(1.0, 0.8)	+-	(0.1, 0.1)
+	(2.0, 1.6)	+-	(0.1, 0.1)
+	(2.8, 1.8)	+-	(0.1, 0.1)
+	(3.2, 2.2)	+-	(0.1, 0.1)
+	(3.6, 2.4)	+-	(0.1, 0.1)
+	(4.2, 2.6)	+-	(0.1, 0.1)
+	(5.0, 2.8)	+-	(0.1, 0.1)
+};
 
+\addplot+[
+	mark  = none,
+	smooth,
+	color = blue
+	]
+coordinates{
+	(  0,   0)
+	(1.0, 0.9)
+	(2.0, 1.55)
+	(2.8, 2.0)
+	(3.2, 2.2)
+	(3.6, 2.4)
+	(4.2, 2.6)
+	(5.0, 2.8)
+};
 
+\end{axis}
+\end{tikzpicture}
 
+\begin{tikzpicture}
+\begin{axis}[
+	title  = {Пермаллой},
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$x$, дел},
+	ylabel = {$y$, дел},
+	grid   = major,
+	xmin = 0,
+	ymin = 0,
+]
 
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	(1.2, 0.4)	+-	(0.1, 0.1)
+	(1.8, 0.8)	+-	(0.1, 0.1)
+	(2.0, 1.0)	+-	(0.1, 0.1)
+	(2.4, 1.2)	+-	(0.1, 0.1)
+	(3.2, 1.8)	+-	(0.1, 0.1)
+};
 
+\addplot+[
+	mark  = none,
+	smooth,
+	color = blue
+	]
+coordinates{
+	(  0,   0)
+	(1.2, 0.45)
+	(1.8, 0.78)
+	(2.0, 0.93)
+	(2.4, 1.2)
+	(3.2, 1.8)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+	title  = {Кремнистое железо},
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$x$, дел},
+	ylabel = {$y$, дел},
+	grid   = major,
+	xmin = 0,
+	ymin = 0,
+]
+
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	(1.0, 1.0)	+-	(0.1, 0.1)
+	(1.6, 1.4)	+-	(0.1, 0.1)
+	(2.4, 1.6)	+-	(0.1, 0.1)
+	(3.0, 1.8)	+-	(0.1, 0.1)
+	(4.0, 2.0)	+-	(0.1, 0.1)
+};
+
+\addplot+[
+	mark  = none,
+	smooth,
+	color = blue
+	]
+coordinates{
+	(  0,   0)
+	(1.0, 1.0)
+	(1.6, 1.4)
+	(2.4, 1.7)
+	(3.0, 1.85)
+	(4.0, 2.0)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\vspace{1cm}
+При измерениях использовались следующие диапазоны, а также были получены следующие размахи по $x$ и $y$:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+						&	Феррит		&	Пермаллой	&	Кремнистое железо	\\
+\hline
+$K_x$, мВ/дел			&	20			&	20			&	50					\\
+\hline
+$K_y$, мВ/дел			&	20			&	100			&	100					\\
+\hline
+$2x$, дел				&	1.8			&	1.8			&	0.6					\\
+\hline
+$2y$, дел				&	1.8			&	3.2			&	1.4					\\
+\hline
+$m_x$, мВ/дел			&	22			&	18			&	48					\\
+\hline
+$m_y$, мВ/дел			&	23			&	96			&	95					\\
+\hline
+$H$, А/м дел			&	34			&	22.0		&	160					\\
+\hline
+$B$, Тл/дел				&	0.19		&	0.91		&	0.70				\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+Теперь из графиков можно определить значения $\mu$ и $H_c$ и $B_s$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+			&	Феррит	&	Пермаллой	&	Кремнистое железо	\\
+\hline
+$\mu$		&	3200	&	13200		&	3500				\\
+\hline
+$H_c$,А/м	&	62		&	40			&	96					\\
+\hline
+$B_s$,Тл	&	0.4		&	2.7			&	2.1					\\
+\hline
+\end{tabular}
+\end{center}
+
+На выходе для RC - 0.05 В примерно
 
 
 \end{document}
