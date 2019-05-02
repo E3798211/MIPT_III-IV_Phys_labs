@@ -3,6 +3,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{graphicx}
+\usepackage{caption}
 \graphicspath{{images/}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -202,6 +203,224 @@ $d$, но менее контрастная.
 	\caption{Спектр решётки-сетки}
 	\label{fig:image}
 \end{figure}
+
+
+\newpage
+\textbf{Ход работы.}
+
+1. Определим расстояние от кассеты до экрана. Получим $135 \pm 2$ см.
+
+2. Измерим расстояние между максимумами для различных решеток:
+
+\vspace{3cm}
+ПЕРЕДЕЛАТЬ
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$N$		&	$m$		&	$X$, мм		&	$x$, мм		&	$d$, мкм		\\
+\hline
+1		&	6		&	223			&	37.2		&	20				\\
+\hline
+5		&	14		&	56			&	4.0			&	190				\\
+\hline
+4		&	16		&	50			&	3.1			&	240				\\
+\hline
+3		&	20		&	31			&	1.6			&	460				\\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
+
+
+
+
+
+Зная, что $d = \lambda/\varphi \approx \lambda/(x/L)$, получим значения $d$. $\lambda$ примем равной 550 нм.
+
+\vspace{1cm}
+
+3. Установим линзу. Измерим расстояния $a$ и $b$ от линзы до сетки и до экрана соответственно. Получим: $a = 4$ см, $b = 131$ см.
+
+Определим размеры сеток на экране:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$N$		&	$m$		&	$mD$, мм	&	$D$, мм		&	$d_\text{л}$, мм	\\
+\hline
+5		&	14		&	56			&	4.0			&	0.12				\\
+\hline
+4		&	16		&	50			&	3.1			&	0.09				\\
+\hline
+3		&	20		&	31			&	1.6			&	0.05				\\
+\hline
+\end{tabular}
+\end{center}
+
+4. Перемещая линзу с помощью микрометрического винта, получим координаты плоскостей саморепродукции:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{$N = 3$}	&	\multicolumn{3}{|c|}{$N = 4$}	&	\multicolumn{3}{|c|}{$N = 5$}		\\
+\hline
+$z$, мм	&	$n$	&	$z_n$, мм	&	$z$, мм	&	$n$	&	$z_n$, мм	&	$z$, мм	&	$n$	&	$z_n$, мм		\\
+\hline
+100		&	0	&	0			&	100		&	0	&	0			&	100		&	0	&	0				\\
+\hline
+93.6	&	1	&	6.4			&	71.2	&	1	&	28.8		&	50.2	&	1	&	48.8			\\
+\hline
+85.6	&	2	&	14.4		&	43.0	&	2	&	57.0		&			&		&					\\
+\hline
+79.0	&	3	&	21.0		&			&		&				&			&		&					\\
+\hline
+72.6	&	4	&	27.4		&			&		&				&			&		&					\\
+\hline
+65.8	&	5	&	34.2		&			&		&				&			&		&					\\
+\hline
+59.0	&	6	&	41.0		&			&		&				&			&		&					\\
+\hline
+51.8	&	7	&	48.2		&			&		&				&			&		&					\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+Построим графики $z_n = f(N)$:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$N$},
+	ylabel = {$z_n$, мм},
+	grid   = major
+]
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	( 0,    0)
+	( 1,  6.4)
+	( 2, 14.4)
+	( 3, 21.0)
+	( 4, 27.4)
+	( 5, 34.2)
+	( 6, 41.0)
+	( 7, 48.2)
+};
+
+\addplot [mark = none]
+coordinates{
+	(-0.00814571, 0)
+	(7.01543, 48.2)
+};
+
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{$N = 3$}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$N$},
+	ylabel = {$z_n$, мм},
+	grid   = major
+]
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	( 0,    0)
+	( 1, 28.8)
+	( 2, 57.0)
+};
+
+\addplot [mark = none]
+coordinates{
+	(-0.00347171, 0)
+	(1.99645, 57)
+};
+
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{$N = 4$}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$N$},
+	ylabel = {$z_n$, мм},
+	grid   = major
+]
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	( 0,    0)
+	( 1, 48.8)
+};
+
+\addplot [mark = none]
+coordinates{
+	( 0,    0)
+	( 1, 48.8)
+};
+
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{$N = 5$}
+\end{figure}
+
+
+Отсюда получим:
+$$
+	z_n = \frac{2d^2}{\lambda}N \Rightarrow d = \sqrt{\frac{\lambda\cdot z_n}{2\cdot N}} = \sqrt{\frac{\lambda\cdot (dz_n/dN)}{2}}
+$$
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+$N$		&	$d\text{реп}$, мм	\\
+\hline
+3		&	0.04				\\
+\hline
+4		&	0.09				\\
+\hline
+5		&	0.12				\\
+\hline
+\end{tabular}
+\end{center}
 
 
 
