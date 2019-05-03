@@ -3,6 +3,8 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
 \graphicspath{{images/}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -344,16 +346,129 @@ $u$ и проверяется соотношение (8).
 и щель поменять местами, то соответствующим подбором сетки можно "рассечь" первичное изображение так, что изображение щели
 на экране будет многократно повторяться -- \textsl{мультиплицироваться}.
 
+\vspace{1cm}
+\textbf{Ход работы.}
 
+\vspace{0.5cm}
+I. Измерим пространственный спектр решеток:
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+N решетки	&	$m$		&	$mx$, мм	&	$x$, мм	&	$d$, мм	\\
+\hline
+1			&	6		&	215			&	35.8	&	0.02	\\
+\hline
+2			&	10		&	240			&	24.0	&	0.03	\\
+\hline
+3			&	22		&	263			&	12.0	&	0.06	\\
+\hline
+4			&	21		&	120			&	5.7		&	0.13	\\
+\hline
+5			&	11		&	45			&	4.1		&	0.18	\\
+\hline
+\end{tabular}
+\end{center}
 
+$d$ определим, зная расстояние $L$ от решетки до экрана: $133.0 \pm 0.2$ см. $\sigma_d$ найдем в предположении, что $d = f(x, L)$:
+$$
+	\sigma_d = \sqrt{\sum \frac{\partial f}{\partial x_i}\sigma_{x_i}}
+$$
 
+\vspace{1cm}
+II. Определим фокусное расстояние $f = 3$ см. Также найдем расстояния $a_1, a_2, b_1, b_2$:
+$$
+	a_1 = 145~\text{мм},~~b_1+a_2 = 620~\text{мм},~~b_2 = 570~\text{мм}
+$$
+\noindent откуда, считая $a_2 = f = 30$ мм, получим
+$$
+	a_1 = 145~\text{мм},~~b_1 = 590~\text{мм},~~a_2 = 30~\text{мм},~~b_2 = 570~\text{мм}
+$$
+\noindent и, соответственно, увеличение будет равно
+$$
+	\frac{b_1b_2}{a_1a_2} \approx 80
+$$
 
+Измерим период увеличенного изображения сетки:
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+N решетки	&	$m$		&	$mx$, мм	&	$x$, мм	&	$d$, мм	\\
+\hline
+5			&	8		&	102			&	12.8	&	0.16	\\
+\hline
+4			&	10		&	95			&	9.5		&	0.12	\\
+\hline
+3			&	16		&	75			&	4.7		&	0.06	\\
+\hline
+2			&	10		&	23			&	2.3		&	0.03	\\
+\hline
+\end{tabular}
+\end{center}
 
+Погрешность оценим, считая $d = f(x, a_1, b_1, a_2, b_2)$.
 
+Заметим, что результаты, полученые в этом пункте, хорошо согласуются с результатами первого пункта.
 
+\vspace{1cm}
+III. Определим для каждой решётки минимальный размер диафрагмы $D$, при котором на экране еще видно изображение сетки. При этом $D = D' - D_0$, где $D'$ - прямое измерение, $D_0$ - показание винта при $D = 0$:
 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+N решетки	&	$d$, мм	&	$D'$, мкм	&	$D$, мкм	&	$1/D$, мкм$^{-1}\cdot 10^{-4}$	\\
+\hline
+5			&	0.16	&	130			&	73			&	140								\\
+\hline
+4			&	0.12	&	150			&	93			&	110								\\
+\hline
+3			&	0.06	&	215			&	158			&	60								\\
+\hline
+2			&	0.03	&	320			&	263 		&	40								\\
+\hline
+\end{tabular}
+\end{center}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+	height = 8cm,
+	width  = 15cm,
+	every axis y label/.style={at = {(ticklabel cs: 0.5)}, rotate = 90, anchor = near ticklabel},
+	xlabel = {$1/D$, мкм$^{-1}\cdot 10^{-4}$},
+	ylabel = {$d$, мм},
+	grid   = major
+]
+\addplot+[
+	only marks,
+	error bars/.cd, 
+	y dir = both, y explicit,
+	x dir = both, x explicit
+	]
+coordinates{
+	( 40, 0.03)
+	( 60, 0.06)
+	(110, 0.12)
+	(140, 0.16)
+};
+
+\addplot [mark = none]
+coordinates{
+	(40, 0.031753)
+	(140, 0.159641)
+};
+
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{20}
+\end{figure}
+
+Видно, что теория Аббе выполняется. 
+
+\newpage
+Таким образом, в данной лабоаторной работе мы изучили дифракционный предел разрешения объектива микроскопа.
 
 \end{document}
