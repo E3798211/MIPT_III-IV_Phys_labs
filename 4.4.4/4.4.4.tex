@@ -350,6 +350,19 @@ $N$	&	$x_\text{низ }$, мм		&	$x_\text{верх}$, мм		&	$D$, мм		&	$D^2
 \end{tabular}
 \end{center}
 
+\vspace{0.5cm}
+1-й дублет, 2-е кольцо
+
+Грань 1: 173.565 мм
+
+Грань 2: 174.140 мм
+
+Откуда:
+$$
+	\delta r = 0.575 \text{мм}
+$$
+
+\vspace{1cm}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -371,6 +384,34 @@ $N$	&	$x_\text{низ }$, мм		&	$x_\text{верх}$, мм		&	$D$, мм		&	$D^2
 \hline
 \end{tabular}
 \end{center}
+
+\vspace{0.5cm}
+Грань 1: 174.057 мм
+
+Грань 2: 174.590 мм
+
+Откуда:
+$$
+	\delta r = 0.589 \text{мм}
+$$
+
+\vspace{1cm}
+Максимальные порядки интерференции для нашей установки (5):
+$$
+	m_\text{зел}  = \frac{2L}{\lambda_\text{зел}}  = 360,
+$$
+$$
+	m_\text{желт} = \frac{2L}{\lambda_\text{желт}} = 345
+$$
+
+\vspace{1cm}
+Дисперсионные области (10):
+$$
+	\Delta\lambda_\text{зел}  = 16\cdot10^{-10}\text{м}
+$$
+$$
+	\Delta\lambda_\text{желт} = 17\cdot10^{-10}\text{м}
+$$
 
 
 \begin{figure}[h!]
@@ -429,10 +470,14 @@ coordinates{
 \end{axis}
 \end{tikzpicture}
 \captionsetup{labelformat=empty}
-% \caption{$N = 3$}
+\caption{$k = \frac{dD^2}{dm} = 237 \pm 5~\text{мм}^2$}
 \end{figure}
 
-
+\vspace{1cm}
+По формуле (8):
+$$
+	L = \frac{4\lambda f^2}{k} = (1.11 \pm 0.03)\cdot10^{-4}~\text{м}
+$$
 
 \begin{figure}[h!]
 \centering
@@ -473,7 +518,24 @@ coordinates{
 % \caption{$N = 3$}
 \end{figure}
 
+\vspace{1cm}
+Из формул (9) и (11) найдем аппаратную разрешающую способность:
+$$
+	R_\text{желт} = \frac{4f^2}{D\delta r} = 5.3\cdot10^4
+$$
+$$
+	R_\text{зел}  = \frac{4f^2}{D\delta r} = 4.8\cdot10^4
+$$
 
+\vspace{0.5cm}
+Для теоретического значения добротности верно:
+$$
+	Q = \frac{2\pi L}{\lambda(1-r)} = 8500
+$$
 
+Откуда число интерферирующих лучей:
+$$
+	N = \frac{Q}{m} = 25
+$$
 
 \end{document}
